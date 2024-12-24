@@ -1,0 +1,267 @@
+
+### AUTO_PARSE Kütüphanesi Dokümantasyonu
+
+---
+
+#### Giriş
+
+`AUTO_PARSE` kütüphanesi, Arduino projelerinde ayraç karakterleriyle bölünmüş verilerin ayrıştırılmasını kolaylaştırır. Ayrıştırılan verileri tanımlı anahtarlarla ilişkilendirir ve bu verilere dinamik olarak erişim sağlar. Kütüphane, esneklik ve kullanım kolaylığı sağlamak amacıyla tasarlanmıştır ve aşağıdaki özellikleri sunar:
+
+---
+
+### Özellikler
+
+1. Ayrılmış (delimited) string verileri anahtar-değer çiftleri olarak ayrıştırır.
+2. Çalışma zamanında dinamik olarak özel anahtarlar (`KEY`) tanımlanabilir.
+3. Ayrıştırılan verilere anahtar isimleriyle erişim sağlar.
+4. Özel ayraç karakterlerini destekler.
+5. Verilerin bütünlüğünü sağlamak için isteğe bağlı uzunluk doğrulama desteği sunar.
+6. **DEBUG** modu ile adım adım işlem takibi sağlar.
+7. `info()` metodu ile tüm sistem bilgilerini ve ayarlarını görüntüler.
+
+---
+
+### Sınıf Tanımı
+
+#### `AUTO_PARSE`
+
+`AUTO_PARSE` sınıfı, kütüphanenin ana yapısını oluşturur ve aşağıdaki işlevleri sağlar:
+
+---
+
+### Kurucu (Constructor)
+
+```cpp
+AUTO_PARSE(int count);
+```
+
+- **Açıklama**: Tanımlı anahtar sayısı kadar bir `AUTO_PARSE` nesnesi oluşturur.
+- **Parametreler**: 
+  - `count`: Tanımlanacak anahtarların sayısı.
+- **Örnek**:
+  ```cpp
+  AUTO_PARSE parser(4);
+  ```
+
+---
+
+### Fonksiyonlar
+
+#### 1. `setKeyName(String baseName[])`
+
+- **Açıklama**: Kullanıcı tarafından sağlanan anahtar isimlerini tanımlar.
+- **Parametreler**:
+  - `baseName[]`: Anahtar isimlerini içeren bir string dizisi.
+- **Örnek**:
+  ```cpp
+  String keys[] = {"name", "surname", "id", "city"};
+  parser.setKeyName(keys);
+  ```
+
+---
+
+#### 2. `setParseChars(char chars)`
+
+- **Açıklama**: Ayrıştırma sırasında kullanılacak ayraç karakterini tanımlar.
+- **Parametreler**:
+  - `chars`: String veriyi ayıracak karakter.
+- **Örnek**:
+  ```cpp
+  parser.setParseChars('-');
+  ```
+
+---
+
+#### 3. `parseString(String data)`
+
+- **Açıklama**: Verilen stringi ayraç karakterine göre ayrıştırır ve anahtar-değer çiftlerini oluşturur.
+- **Parametreler**:
+  - `data`: Ayrıştırılacak string veri.
+- **Örnek**:
+  ```cpp
+  parser.parseString("John-Doe-123-NewYork");
+  ```
+
+---
+
+#### 4. `setLengthString(int length)`
+
+- **Açıklama**: Uzunluk doğrulama için beklenen string uzunluğunu tanımlar.
+- **Parametreler**:
+  - `length`: Beklenen string uzunluğu.
+- **Örnek**:
+  ```cpp
+  parser.setLengthString(20);
+  ```
+
+---
+
+#### 5. `enableLengthCheck()`
+
+- **Açıklama**: String uzunluğu kontrolünü etkinleştirir.
+- **Örnek**:
+  ```cpp
+  parser.enableLengthCheck();
+  ```
+
+---
+
+#### 6. `disableLengthCheck()`
+
+- **Açıklama**: String uzunluğu kontrolünü devre dışı bırakır.
+- **Örnek**:
+  ```cpp
+  parser.disableLengthCheck();
+  ```
+
+---
+
+#### 7. `enableDEBUG()`
+
+- **Açıklama**: DEBUG modunu etkinleştirir. İşlem adımları seri monitöre yazdırılır.
+- **Örnek**:
+  ```cpp
+  parser.enableDEBUG();
+  ```
+
+---
+
+#### 8. `disableDEBUG()`
+
+- **Açıklama**: DEBUG modunu devre dışı bırakır.
+- **Örnek**:
+  ```cpp
+  parser.disableDEBUG();
+  ```
+
+---
+
+#### 9. `debug(String message)`
+
+- **Açıklama**: DEBUG modunda bir mesaj yazdırır. (Genelde dahili olarak kullanılır.)
+- **Parametreler**:
+  - `message`: Yazdırılacak mesaj.
+- **Örnek**:
+  ```cpp
+  parser.debug("Test message");
+  ```
+
+---
+
+#### 10. `getValue(String key)`
+
+- **Açıklama**: Belirtilen anahtarın karşılık gelen değerini döndürür.
+- **Parametreler**:
+  - `key`: Değerini almak istediğiniz anahtar.
+- **Döndürür**: Anahtarın değeri veya `NULL`.
+- **Örnek**:
+  ```cpp
+  String name = parser.getValue("name");
+  ```
+
+---
+
+#### 11. `info()`
+
+- **Açıklama**: Tüm ayarları ve verileri seri monitöre yazdırır.
+- **Örnek**:
+  ```cpp
+  parser.info();
+  ```
+
+---
+
+### Örnek Kullanım
+
+```cpp
+#include <Arduino.h>
+#include "AUTO_PARSE.h"
+
+void setup() {
+  Serial.begin(9600);
+
+  // 4 anahtar için bir AUTO_PARSE nesnesi oluştur
+  AUTO_PARSE parser(4);
+
+  // Anahtar isimlerini ayarla
+  String keys[] = {"name", "surname", "id", "city"};
+  parser.setKeyName(keys);
+
+  // Parse karakterini ayarla
+  parser.setParseChars('-');
+
+  // String uzunluğu kontrolü
+  parser.setLengthString(20);
+  parser.enableLengthCheck();
+
+  // DEBUG modunu etkinleştir
+  parser.enableDEBUG();
+
+  // String verisini ayrıştır
+  parser.parseString("John-Doe-123-NewYork");
+
+  // Değerleri al ve yazdır
+  Serial.println("Name: " + parser.getValue("name"));
+
+  // Tüm bilgileri yazdır
+  parser.info();
+}
+
+void loop() {
+  // Döngüye gerek yok
+}
+```
+
+---
+
+### Örnek Seri Monitör Çıktısı
+
+```
+[DEBUG] AUTO_PARSE initialized with 4 keys.
+[DEBUG] Key 0 set to: name
+[DEBUG] Key 1 set to: surname
+[DEBUG] Key 2 set to: id
+[DEBUG] Key 3 set to: city
+[DEBUG] Parse character set to: -
+[DEBUG] String length set to: 20
+[DEBUG] Length check enabled.
+[DEBUG] DEBUG mode enabled.
+[DEBUG] Parsing string: John-Doe-123-NewYork
+[DEBUG] Length check passed. Length: 20
+[DEBUG] Extracted part: John
+[DEBUG] Key: name, Value: John
+[DEBUG] Extracted part: Doe
+[DEBUG] Key: surname, Value: Doe
+[DEBUG] Extracted part: 123
+[DEBUG] Key: id, Value: 123
+[DEBUG] Extracted part: NewYork
+[DEBUG] Key: city, Value: NewYork
+[DEBUG] Parsing completed.
+Name: John
+=== AUTO_PARSE Info ===
+Key Count: 4
+Key 0: name
+Key 1: surname
+Key 2: id
+Key 3: city
+Parse Character: -
+String Length: 20
+Length Check Enabled: Yes
+DEBUG Mode: Enabled
+Parsed Data:
+  Key: name, Value: John
+  Key: surname, Value: Doe
+  Key: id, Value: 123
+  Key: city, Value: NewYork
+========================
+```
+
+---
+
+### Notlar
+
+1. Kullanılacak anahtar (`KEY`) sayısı, `AUTO_PARSE` nesnesi oluşturulurken belirlenir.
+2. Ayrıştırma işlemi öncesinde anahtar isimleri (`setKeyName`) ve ayraç karakteri (`setParseChars`) ayarlanmalıdır.
+3. Uzunluk doğrulama aktifken, string uzunluğu belirtilen `STRING_LENGTH` değerine eşit değilse işlem yapılmaz.
+
+Bu dokümantasyon, kütüphanenin tüm işlevlerini ve kullanım detaylarını kapsamaktadır. 😊

@@ -1,0 +1,174 @@
+
+### AUTO_PARSE Library Functions
+
+---
+
+#### 1. Constructor
+```cpp
+AUTO_PARSE(int count);
+```
+- **Description**: Initializes the AUTO_PARSE object with a specific number of keys.
+- **Parameters**:
+  - `count`: The number of keys to define.
+- **Example**:
+  ```cpp
+  AUTO_PARSE parser(4);
+  ```
+
+---
+
+#### 2. setKeyName
+```cpp
+void setKeyName(String baseName[]);
+```
+- **Description**: Sets the names of the keys dynamically.
+- **Parameters**:
+  - `baseName[]`: An array of strings containing the key names.
+- **Example**:
+  ```cpp
+  String keys[] = {"name", "surname", "id", "city"};
+  parser.setKeyName(keys);
+  ```
+
+---
+
+#### 3. setParseChars
+```cpp
+void setParseChars(char chars);
+```
+- **Description**: Sets the character used to delimit the string for parsing.
+- **Parameters**:
+  - `chars`: The delimiter character.
+- **Example**:
+  ```cpp
+  parser.setParseChars('-');
+  ```
+
+---
+
+#### 4. parseString
+```cpp
+void parseString(String data);
+```
+- **Description**: Parses the input string into key-value pairs based on the defined delimiter and keys.
+- **Parameters**:
+  - `data`: The string to parse.
+- **Example**:
+  ```cpp
+  parser.parseString("John-Doe-123-NewYork");
+  ```
+
+---
+
+#### 5. setLengthString
+```cpp
+void setLengthString(int length);
+```
+- **Description**: Sets the expected length of the string for validation.
+- **Parameters**:
+  - `length`: The expected string length.
+- **Example**:
+  ```cpp
+  parser.setLengthString(20);
+  ```
+
+---
+
+#### 6. enableLengthCheck
+```cpp
+void enableLengthCheck();
+```
+- **Description**: Enables length validation for the input string.
+- **Example**:
+  ```cpp
+  parser.enableLengthCheck();
+  ```
+
+---
+
+#### 7. disableLengthCheck
+```cpp
+void disableLengthCheck();
+```
+- **Description**: Disables length validation for the input string.
+- **Example**:
+  ```cpp
+  parser.disableLengthCheck();
+  ```
+
+---
+
+#### 8. enableDEBUG
+```cpp
+void enableDEBUG();
+```
+- **Description**: Enables DEBUG mode to print step-by-step execution details to the serial monitor.
+- **Example**:
+  ```cpp
+  parser.enableDEBUG();
+  ```
+
+---
+
+#### 9. disableDEBUG
+```cpp
+void disableDEBUG();
+```
+- **Description**: Disables DEBUG mode.
+- **Example**:
+  ```cpp
+  parser.disableDEBUG();
+  ```
+
+---
+
+#### 10. debug
+```cpp
+void debug(String message);
+```
+- **Description**: Prints a debug message if DEBUG mode is enabled. Typically used internally.
+- **Parameters**:
+  - `message`: The message to print.
+- **Example**:
+  ```cpp
+  parser.debug("Debug message");
+  ```
+
+---
+
+#### 11. getValue
+```cpp
+String getValue(String key);
+```
+- **Description**: Retrieves the value associated with a specific key.
+- **Parameters**:
+  - `key`: The name of the key whose value is requested.
+- **Returns**: The value corresponding to the key or "NULL" if the key is not found.
+- **Example**:
+  ```cpp
+  String name = parser.getValue("name");
+  ```
+
+---
+
+#### 12. info
+```cpp
+void info();
+```
+- **Description**: Prints all current settings and parsed data to the serial monitor.
+- **Example**:
+  ```cpp
+  parser.info();
+  ```
+
+---
+
+#### 13. printAllData
+```cpp
+void printAllData();
+```
+- **Description**: Prints all parsed key-value pairs to the serial monitor.
+- **Example**:
+  ```cpp
+  parser.printAllData();
+  ```

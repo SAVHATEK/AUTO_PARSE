@@ -1,0 +1,28 @@
+{
+    "name": "AUTO_PARSE",
+    "version": "1.0.0",
+    "author": "CAN BERK ÖRENBOZ",
+    "maintainer": "CAN BERK ÖRENBOZ <canberkorenboz@savhatek.com>",
+    "license": "MIT",
+    "summary": "A flexible and dynamic string parsing library for Arduino projects.",
+    "description": "AUTO_PARSE is a lightweight Arduino library that simplifies the process of parsing delimited strings, mapping them to keys, and accessing them dynamically. It features debugging support, length validation, and dynamic key management.",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/SAVHATEK/AUTO_PARSE"
+    },
+    "frameworks": [
+        "arduino"
+    ],
+    "platforms": [
+        "atmelavr",
+        "espressif32",
+        "espressif8266"
+    ],
+    "keywords": [
+        "string",
+        "parsing",
+        "debug",
+        "arduino",
+        "dynamic"
+    ]
+}

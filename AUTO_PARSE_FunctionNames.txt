@@ -1,0 +1,14 @@
+
+AUTO_PARSE(int count);
+void setKeyName(String baseName[]);
+void setParseChars(char chars);
+void parseString(String data);
+void setLengthString(int length);
+void enableLengthCheck();
+void disableLengthCheck();
+void enableDEBUG();
+void disableDEBUG();
+void debug(String message);
+String getValue(String key);
+void info();
+void printAllData();
